@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Арена — спортивные турниры</title>
+<meta name="theme-color" content="#2447a6"><meta name="description" content="Создание спортивных турниров, жеребьёвка, турнирные сетки и результаты матчей.">
+<link rel="icon" href="favicon.svg"><link rel="stylesheet" href="style.css">
+<!-- Plain scripts in order, no modules: the page also opens from a folder (file://). -->
+<script src="engine.js" defer></script><script src="participants.js" defer></script><script src="qr.js" defer></script><script src="core.js" defer></script><script src="board.js" defer></script><script src="tv.js" defer></script><script src="app.js" defer></script>
+</head>
+<body class="landing">
+<svg class="symbols" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+<symbol id="logo" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" style="fill:var(--court)"/><path fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M6 8h8v6H6m0 4h8v6H6m8-13h6v10h-6"/><path fill="none" style="stroke:var(--ball)" stroke-width="2.6" stroke-linecap="round" d="M20 16h6"/></symbol>
+<symbol id="plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.4 9a2.7 2.7 0 1 1 4.2 2.3c-1.2.8-1.6 1.1-1.6 2.4m0 2.1v.4"/></symbol>
+<symbol id="cup" viewBox="0 0 24 24"><path d="M7 4h10v4c0 4-2 6-5 6s-5-2-5-6zM7 6H4v2c0 2 1 4 4 4m9-6h3v2c0 2-1 4-4 4m-4 2v4m-4 2h8"/></symbol>
+<symbol id="x" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+<symbol id="upload" viewBox="0 0 24 24"><path d="M12 16V3m-5 5 5-5 5 5M4 16v4h16v-4"/></symbol>
+<symbol id="link" viewBox="0 0 24 24"><path d="m10 14 4-4m-6 2-2 2a3.5 3.5 0 0 0 5 5l3-3m-4-8 3-3a3.5 3.5 0 0 1 5 5l-2 2"/></symbol>
+<symbol id="key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9m-4 4 3 3m-6 0 2 2"/></symbol>
+<symbol id="eye" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="tv" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8m-4-4v4"/></symbol>
+<symbol id="grid" viewBox="0 0 24 24"><path d="M3 5h6v4H3zm0 10h6v4H3zm12-5h6v4h-6zM9 7h3v10H9m3-5h3"/></symbol>
+<symbol id="qr" viewBox="0 0 24 24"><path d="M4 4h6v6H4zm10 0h6v6h-6zM4 14h6v6H4zm10 0h2v2h-2zm4 4h2v2h-2zm-4 4v-2m6-6h-2"/></symbol>
+<symbol id="sliders" viewBox="0 0 24 24"><path d="M4 7h9m4 0h3M4 17h3m4 0h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></symbol>
+<symbol id="flag" viewBox="0 0 24 24"><path d="M5 21V4h11l-2 4 2 4H5"/></symbol>
+<symbol id="archive" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="5" rx="1"/><path d="M5 9v10h14V9m-9 4h4"/></symbol>
+<symbol id="copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="1.5"/><path d="M5 15H4V4h11v1"/></symbol>
+<symbol id="download" viewBox="0 0 24 24"><path d="M12 4v12m-5-5 5 5 5-5M4 20h16"/></symbol>
+<symbol id="expand" viewBox="0 0 24 24"><path d="M4 9V4h5m6 0h5v5m0 6v5h-5m-6 0H4v-5"/></symbol>
+<symbol id="edit" viewBox="0 0 24 24"><path d="m4 20 4-1 11-11-3-3L5 16zm10-13 3 3"/></symbol>
+<symbol id="grip" viewBox="0 0 24 24"><path d="M9 6h.01M15 6h.01M9 12h.01M15 12h.01M9 18h.01M15 18h.01" style="stroke-width:3.2"/></symbol><symbol id="up" viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></symbol><symbol id="down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol><symbol id="shuffle" viewBox="0 0 24 24"><path d="M4 7h3c5 0 5 10 10 10h3m0 0-3-3m3 3-3 3M4 17h3c1.7 0 2.8-1.1 3.7-2.6m2.6-4.8C14.2 8.1 15.3 7 17 7h3m0 0-3-3m3 3-3 3"/></symbol>
+<symbol id="print" viewBox="0 0 24 24"><path d="M7 9V3h10v6M7 17H4v-8h16v8h-3M7 14h10v7H7z"/></symbol>
+<symbol id="logout" viewBox="0 0 24 24"><path d="M14 4h5v16h-5m-4-12-4 4 4 4m-4-4h10"/></symbol>
+<!-- Format diagrams: painted lines, the winner's path in ball orange. -->
+<symbol id="f-single" viewBox="0 0 120 72"><path d="M4 10h36v16H4m0 20h36v16H4m36-44h38v36H40m38-18h38"/><path class="path" style="stroke:var(--ball);stroke-width:3.2" d="M4 46h36v8h38V36h38"/></symbol>
+<symbol id="f-double" viewBox="0 0 120 72"><path d="M4 8h32v12H4m32-6h40M76 14v36m0-18h40"/><path class="second" style="stroke-dasharray:4 5" d="M4 44h32v12H4m32-6h40"/><path class="path" style="stroke:var(--ball);stroke-width:3.2" d="M4 20h32v-6h40v18h40"/></symbol>
+<symbol id="f-round" viewBox="0 0 120 72"><path class="thin" style="stroke-width:1.4;opacity:.55" d="M60 8 86.6 27.3 76.5 58.7H43.5L33.4 27.3zM60 8l16.5 50.7M60 8 43.5 58.7m43.1-31.4H33.4m53.2 0L43.5 58.7m33-0L33.4 27.3"/><circle cx="86.6" cy="27.3" r="4" style="fill:currentColor;stroke:none"/><circle cx="76.5" cy="58.7" r="4" style="fill:currentColor;stroke:none"/><circle cx="43.5" cy="58.7" r="4" style="fill:currentColor;stroke:none"/><circle cx="33.4" cy="27.3" r="4" style="fill:currentColor;stroke:none"/><circle class="dot" style="fill:var(--ball);stroke:none" cx="60" cy="8" r="4.5"/></symbol>
+<symbol id="f-roundFinal" viewBox="0 0 120 72"><path class="thin" style="stroke-width:1.4;opacity:.55" d="M14 14h32v44H14zM14 14l32 44m0-44L14 58"/><path d="M46 58h30V14"/><circle cx="14" cy="14" r="4" style="fill:currentColor;stroke:none"/><circle cx="14" cy="58" r="4" style="fill:currentColor;stroke:none"/><circle cx="46" cy="58" r="4" style="fill:currentColor;stroke:none"/><path class="path" style="stroke:var(--ball);stroke-width:3.2" d="M46 14h30v22h40"/><circle class="dot" style="fill:var(--ball);stroke:none" cx="46" cy="14" r="4.5"/></symbol>
+<symbol id="f-groups" viewBox="0 0 120 72"><path class="thin" style="stroke-width:1.4;opacity:.55" d="M8 8h28L22 28zM8 44h28L22 64z"/><circle cx="8" cy="8" r="3.5" style="fill:currentColor;stroke:none"/><circle cx="36" cy="8" r="3.5" style="fill:currentColor;stroke:none"/><circle cx="22" cy="28" r="3.5" style="fill:currentColor;stroke:none"/><circle cx="8" cy="44" r="3.5" style="fill:currentColor;stroke:none"/><circle cx="36" cy="44" r="3.5" style="fill:currentColor;stroke:none"/><circle cx="22" cy="64" r="3.5" style="fill:currentColor;stroke:none"/><path d="M42 54h30V18"/><path class="path" style="stroke:var(--ball);stroke-width:3.2" d="M42 18h30v18h44"/></symbol>
+</svg>
+<header><div class="navinner"><a class="brand" href="#home" aria-label="Арена, главная"><svg aria-hidden="true"><use href="#logo"/></svg>Арена</a>
+<nav aria-label="Основная навигация"><a id="homeNav" href="#home" aria-current="page">Главная</a><a id="myNav" href="#mine">Мои турниры</a></nav>
+<button class="help" data-act="help"><svg class="icon"><use href="#help"/></svg><span>Справка</span></button></div></header>
+<main id="home">
+<section class="hero" aria-labelledby="heroTitle">
+<div class="heroContent">
+<h1 id="heroTitle">Турнир от&nbsp;жеребьёвки до&nbsp;пьедестала</h1>
+<p>Впишите участников и выберите формат. Арена проведёт жеребьёвку, построит сетку и пересчитает очки после каждого матча.</p>
+<button class="primary big" data-act="create"><svg class="icon"><use href="#plus"/></svg>Создать турнир</button>
+</div>
+<figure class="demo">
+<figcaption>Школьный кубок по волейболу</figcaption>
+<svg id="demoBracket" viewBox="-2 0 566 380" role="img" aria-label="Пример сетки: восемь классов, в финале 9 «А» обыгрывает 8 «В» со счётом 2 : 1">
+<g class="lines">
+<path class="r1" pathLength="1" d="M0 28H140V76H0"/><path class="r1" pathLength="1" d="M0 124H140V172H0"/><path class="r1" pathLength="1" d="M0 220H140V268H0"/><path class="r1" pathLength="1" d="M0 316H140V364H0"/>
+<path class="r2" pathLength="1" d="M140 52H280V148H140"/><path class="r2" pathLength="1" d="M140 244H280V340H140"/>
+<path class="r3" pathLength="1" d="M280 100H420V292H280"/>
+<path class="r4" pathLength="1" d="M420 196H560"/>
+<path class="win" pathLength="1" d="M0 220H140V244H280V292H420V196H560"/>
+</g>
+<g class="names t1"><text x="4" y="19">7 «А»</text><text x="4" y="67">7 «Б»</text><text x="4" y="115">8 «А»</text><text x="4" y="163">8 «В»</text><text x="4" y="211" class="champ">9 «А»</text><text x="4" y="259">9 «Б»</text><text x="4" y="307">10 «А»</text><text x="4" y="355">11 «Б»</text></g>
+<g class="scores t1"><text x="134" y="19">2</text><text x="134" y="67">0</text><text x="134" y="115">1</text><text x="134" y="163">2</text><text x="134" y="211">2</text><text x="134" y="259">1</text><text x="134" y="307">2</text><text x="134" y="355">0</text></g>
+<g class="names t2"><text x="146" y="43">7 «А»</text><text x="146" y="139">8 «В»</text><text x="146" y="235" class="champ">9 «А»</text><text x="146" y="331">10 «А»</text></g>
+<g class="scores t2"><text x="274" y="43">0</text><text x="274" y="139">2</text><text x="274" y="235">2</text><text x="274" y="331">1</text></g>
+<g class="names t3"><text x="286" y="91">8 «В»</text><text x="286" y="283" class="champ">9 «А»</text></g>
+<g class="scores t3"><text x="414" y="91">1</text><text x="414" y="283">2</text></g>
+<g class="final t4"><text x="426" y="184">9 «А»</text><text x="426" y="222" class="caption">Чемпион</text></g>
+</svg>
+</figure>
+</section>
+<section id="formats" class="formats" aria-labelledby="formatsHeading">
+<div class="formatsHead"><h2 id="formatsHeading">Пять форматов проведения</h2><p>Нажмите на формат, чтобы прочитать правила. Окончательный выбор делается перед жеребьёвкой.</p></div>
+<div class="cards" id="cards"></div>
+</section>
+</main>
+<main id="secondary" hidden></main>
+<footer><span>Арена: турниры для школ, клубов и любительских лиг</span><button data-act="help">Справка организатора</button></footer>
+<dialog id="modal" aria-labelledby="dialogTitle"><div class="dialogTop"><span class="sectionlabel" id="dialogLabel"></span><button class="square" id="close" aria-label="Закрыть"><svg class="icon"><use href="#x"/></svg></button></div><h2 id="dialogTitle"></h2><div id="dialogBody"></div></dialog>
+<div id="notice" role="status" hidden></div>
+</body></html>
